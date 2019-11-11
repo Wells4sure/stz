@@ -10,8 +10,8 @@
        <div class="col-xs-12 bgGradient">
            <div class="container">
                <div class="row">
-                    <div class="col-xs-12 search-box">
-                         <h1 class="clr-gray font-15 text-center">Book Bus Ticket Across India. Travelling with a group? Hire a bus.</h1>
+                    <div class="col-xs-12 col-md-12 search-box">
+                         <h1 class="clr-gray font-15 text-center">Book Bus Ticket Across Zambia.</h1>
                          
                              <form action=""role="form" class="py-4">
                                 <div class="row">
@@ -33,6 +33,9 @@
                                 </div>
                              </form>
                          
+                    </div>
+                    <div class="col-xs-12 col-md-12 search-results">
+                        <h1>Search Results </h1>
                     </div>
                </div>
 
