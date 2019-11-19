@@ -6,17 +6,17 @@
 @section('content')
 
 <div class="page-header">
-<div class="page-header-content">
-    <div class="page-title">
-        <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Users</span> - All Users</h4>
-    </div>
+    <div class="page-header-content">
+        <div class="page-title">
+            <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Users</span> - All Users</h4>
+        </div>
 
-    <div class="heading-elements">
-        <div class="heading-btn-group">
-            <a href="#" data-toggle="modal" data-target="#modal_theme_primary" class="btn btn-link btn-float text-size-small has-text"><i class="icon-user-plus text-primary"></i><span>Add New User</span></a>
+        <div class="heading-elements">
+            <div class="heading-btn-group">
+                <a href="#" data-toggle="modal" data-target="#modal_theme_primary" class="btn btn-link btn-float text-size-small has-text"><i class="icon-user-plus text-primary"></i><span>Add New User</span></a>
+            </div>
         </div>
     </div>
-</div>
 
 <div class="breadcrumb-line breadcrumb-line-component">
     <ul class="breadcrumb">

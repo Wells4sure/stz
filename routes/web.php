@@ -33,6 +33,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
     Route::group(['prefix' => 'operators'], function () {
         Route::get('', 'OperatorsController@index')->name('admin.operators.index');
+        Route::post('', 'OperatorsController@store')->name('admin.operators.store');
+        Route::get('{id}/edit', 'OperatorsController@edit')->name('admin.operators.edit');
+        Route::put('{operator}', 'OperatorsController@update')->name('admin.operators.update');
     });
     
 });

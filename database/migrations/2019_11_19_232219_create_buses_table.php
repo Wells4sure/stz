@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOperatorsTable extends Migration
+class CreateBusesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateOperatorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('operators', function (Blueprint $table) {
+        Schema::create('buses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('slug');
-            $table->string('logo')->nullable();
-            $table->string('phone');
-            $table->string('email')->unique()->nullable();
-            $table->string('address')->nullable();
+            $table->string('reg');
+            $table->string('num_seats');
+            $table->unsignedBigInteger('operator_id');
+            $table->foreign('operator_id')->references('id')->on('operators')->onDelete('CASCADE');
             $table->boolean('active')->default(0);
             $table->timestamps();
         });
@@ -33,6 +31,6 @@ class CreateOperatorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('operators');
+        Schema::dropIfExists('buses');
     }
 }

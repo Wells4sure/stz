@@ -20,4 +20,13 @@ class Operator extends Model
     }
 
     protected $fillable =['name','logo','phone','email','address', 'active'];
+
+    /**
+     * Operator belongs to user
+     */
+    public function user()
+    {
+        return $this->belongsTo('\App\User');
+    }
+
 }

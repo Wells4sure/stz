@@ -58,7 +58,24 @@
                     <th>Address</th>
                     <th>Joined </th>
                 </thead>
+                <tbody>
+                    @foreach ($operators as $operator)
+                    <tr>
+                        <td>
+                            <a href="#" class="btn bg-success-400 btn-rounded btn-icon btn-xs legitRipple">
+                                        <span class="letter-icon">{{ucfirst(substr($operator->name ,0,1))}}</span>
+                            </a>
+                        </td>
+                        <td> <a href="{{ route('admin.operators.edit',[$operator->id]) }}">{{$operator->name}}</a> </td>
+                        <td>{{$operator->phone}}</td>
+                        <td>{{$operator->email}}</td>
+                        <td>{{$operator->address}}</td>
+                        <td>{{$operator->created_at}}</td>
+                    </tr>
+                        
+                    @endforeach
+                </tbody>
             </table>
     </div>
+    @include('admin.operators.partials.models')
 @endsection
-@include('admin.operators.partials.models')
