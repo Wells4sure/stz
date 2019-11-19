@@ -5,7 +5,7 @@
             <div class="sidebar-user-material">
                 <div class="category-content">
                     <div class="sidebar-user-material-content">
-                        <a href="#"><img src="assets/images/placeholder.jpg" class="img-circle img-responsive" alt=""></a>
+                        <a href="#"><img src=" {{ url('assets/images/placeholder.jpg')}} " class="img-circle img-responsive" alt=""></a>
                         <h6>Wellington Chanda</h6>
                         
                     </div>
@@ -36,13 +36,20 @@
 
                         <!-- Main -->
                         <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
-                        <li class="active"><a href="/"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
+                        <li class="{{ Route::currentRouteNamed('admin.index') ? 'active' : '' }}"><a href="{{ route('admin.index') }}"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
                         <li>
                             <a href="#"><i class="icon-users"></i> <span> Users </span></a>
                             <ul>
-                                <li><a href="#">All Users</a></li>
+                                <li class="{{ Route::currentRouteNamed('admin.users.index') ? 'active' : '' }}"><a href="{{ route('admin.users.index') }}">All Users</a></li>
                                 <li><a href="#">Business Owners</a></li>
                                 <li><a href="#">Travellers</a></li>
+                              
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><i class="icon-store"></i> <span>Operators</span></a>
+                            <ul>
+                                <li class="{{ Route::currentRouteNamed('admin.operators.index') ? 'active' : '' }}"><a href="{{ route('admin.operators.index') }}" id="layout1">View Operators</a></li>
                               
                             </ul>
                         </li>
