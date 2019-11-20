@@ -8,6 +8,7 @@ use App\Http\Requests\Operators\CreateOperatorsRequest;
 use App\Http\Requests\Operators\UpdateOperatorsRequest;
 use App\Operator;
 use App\User;
+use App\Bus;
 
 class OperatorsController extends Controller
 {
@@ -77,7 +78,8 @@ class OperatorsController extends Controller
     {
         $businessOwners = User::where('role','=','business_owner')->get();
         $operator = Operator::with([
-            'user'
+            'user',
+            'buses'
         ])->findOrFail($id);
            
         return view('admin.operators.edit',compact('operator','businessOwners'));
@@ -100,6 +102,11 @@ class OperatorsController extends Controller
         $operator->address = $request->address;
         $operator->active = $request->active;
 
+        if($request->reg != null || $request->num_seats != null ){
+           
+            $this->storeBus($request->all(), $operator->id, $operator);
+        }
+
         if(!$operator->save()){
             return redirect()->back()->with(['msg' => 'Action Failed Call Developer', 'type' => 'bg-info']);
         }
@@ -115,5 +122,22 @@ class OperatorsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function storeBus($data, $operator_id, $operator)
+    {
+      try{
+        
+        $noSpaces =str_replace(' ', '',$data['reg']);
+
+        Bus::create([
+            'operator_id' => $operator_id,
+            'reg' =>  $noSpaces,
+            'num_seats' => $data['num_seats'],
+        ]);
+
+        }catch (\Exception $e) {
+            return redirect()->back()->with(['msg' => 'Bus not created try again later', 'type' => 'bg-error']);
+        }
     }
 }

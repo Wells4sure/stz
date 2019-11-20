@@ -28,5 +28,13 @@ class Operator extends Model
     {
         return $this->belongsTo('\App\User');
     }
+    /**
+     * Operator has many Buses
+     */
+    public function buses()
+    {
+        return $this->hasMany('\App\Bus');
+    }
+
 
 }

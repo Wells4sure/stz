@@ -50,13 +50,14 @@
                                     <li class=""><a href="#bottom-justified-divided-tab3" data-toggle="tab" class="legitRipple" aria-expanded="true">Reviews</a></li>
 
                                 </ul>
-                               
+                                <form  action="{{ route('admin.operators.update', ['operator' => $operator->id]) }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
                                 <div class="tab-content">
 <hr>
+
+        {{ csrf_field() }}
                                     {{-- Operaters Details --}}
                                     <div class="tab-pane active" id="bottom-justified-divided-tab1">
-                                            <form  action="{{ route('admin.operators.update', ['operator' => $operator->id]) }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
-                                                {{ csrf_field() }}
+                                           
                                                 <input type="hidden" name="_method" value="PUT">
                                                 <input type="hidden" name="id" value="{{$operator->id}}">
                                             <div class="form-group">
@@ -130,8 +131,8 @@
                                                         </div>
                                                             
                                                         </div>
-                                                    <button type="submit" class="btn btn-primary pull-right">Save</button>
-                                                </form>
+                                                    
+ 
                                     </div>
 
                                     <div class="tab-pane " id="bottom-justified-divided-tab2">
@@ -139,13 +140,23 @@
                                            <div class="col-md-6">
                                                 <table class="table datatable-basic table-hover">
                                                         <thead>
-                                                            <th></th>
+                                                          
                                                             <th>REG </th>
                                                             <th>Seats</th>                                                        
                                                             <th>Active</th>                                                        
                                                             <th>Added </th>
                                                         </thead>
                                                         <tbody>
+                                                            @foreach ($operator->buses as $bus)
+                                                                <tr>
+                                                                    <td>{{$bus->reg}}</td>
+                                                                    <td>{{$bus->num_seats}}</td>
+                                                                    <td>{{$bus->active ?'Yes':'No'}}</td>
+                                                                    <td>{{$bus->created_at}}</td>
+                                                                </tr>  
+                                                               
+                                                            @endforeach
+                                                            
                                                         </tbody>
                                                 </table>
                                            </div>
@@ -157,10 +168,7 @@
                                                         </div>
                                                         
                                                         <div class="panel-body">
-                                                                <form  action="{{ route('admin.operators.update', ['operator' => $operator->id]) }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
-                                                                    {{ csrf_field() }}
-                                                                    <input type="hidden" name="_method" value="PUT">
-                                                                    <input type="hidden" name="id" value="{{$operator->id}}">
+                                                                
                                                                     <div class="form-group  has-feedback">
                                                                             <label class="control-label col-sm-3">Reg #</label>
                                                                             <div class="col-sm-9">
@@ -174,8 +182,8 @@
                                                                                     <input type="number" placeholder="Enter number of seats" name="num_seats" class="form-control" value="{{ old('num_seats')}}" min='1' max="399">
                                                                             </div>
                                                                         </div>
-                                                                        <button type="submit" class="btn btn-primary pull-right">Save</button>
-                                                                </form>
+                                                                       
+                                                               
                                                         </div>
                                                     </div>
 
@@ -188,8 +196,8 @@
                                     <div class="tab-pane" id="bottom-justified-divided-tab3">
                                         Reviews Can be viewed here
                                     </div>
-
-                                    
+                                    <button type="submit" class="btn btn-primary pull-right">Save</button>
+                                </form>
                                 </div>
                           
                             </div>
