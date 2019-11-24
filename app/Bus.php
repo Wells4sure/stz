@@ -28,5 +28,13 @@ class Bus extends Model
     {
         return $this->belongsTo('\App\Operator');
     }
+        
+    /**
+     * Bus has a route.
+     */
+    public function bus_routes()
+    {
+        return $this->hasMany('App\BusRoute');
+    }
 
 }

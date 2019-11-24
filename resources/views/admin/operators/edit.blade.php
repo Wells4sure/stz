@@ -141,7 +141,7 @@
                                                 <table class="table datatable-basic table-hover">
                                                         <thead>
                                                           
-                                                            <th>REG </th>
+                                                            <th>Registration # </th>
                                                             <th>Seats</th>                                                        
                                                             <th>Active</th>                                                        
                                                             <th>Added </th>
@@ -149,7 +149,7 @@
                                                         <tbody>
                                                             @foreach ($operator->buses as $bus)
                                                                 <tr>
-                                                                    <td>{{$bus->reg}}</td>
+                                                                    <td><a href="{{ route('admin.operators.edit.bus',[$bus->id]) }}">{{$bus->reg}}</a></td>
                                                                     <td>{{$bus->num_seats}}</td>
                                                                     <td>{{$bus->active ?'Yes':'No'}}</td>
                                                                     <td>{{$bus->created_at}}</td>

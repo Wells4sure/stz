@@ -35,7 +35,7 @@
                          
                     </div>
                     <div class="col-xs-12 col-md-12 search-results">
-                        <h1>Search Results </h1>
+                        <h1 class="clr-white">Search Results </h1>
                     </div>
                </div>
 

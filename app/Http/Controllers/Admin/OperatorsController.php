@@ -9,6 +9,8 @@ use App\Http\Requests\Operators\UpdateOperatorsRequest;
 use App\Operator;
 use App\User;
 use App\Bus;
+use App\Route;
+use App\BusRoute;
 
 class OperatorsController extends Controller
 {
@@ -74,9 +76,28 @@ class OperatorsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function editBus($id)
+    {
+        $routes=Route::get();
+        
+        $bus = Bus::with([
+            'operator',
+            'bus_routes'
+        ])->findOrFail($id);
+           
+        return view('admin.operators.editBus',compact('bus','routes'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function edit($id)
     {
         $businessOwners = User::where('role','=','business_owner')->get();
+      
         $operator = Operator::with([
             'user',
             'buses'
@@ -111,6 +132,49 @@ class OperatorsController extends Controller
             return redirect()->back()->with(['msg' => 'Action Failed Call Developer', 'type' => 'bg-info']);
         }
         return redirect()->back()->with(['msg' => 'Operator Updated successfully', 'type' => 'bg-success']);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateBus(Request $request, Bus $bus)
+    {
+        
+        $bus = Bus::findorfail($request->id);
+
+        if( $request->update){
+            $bus->operator_id = $request->operator_id;
+            $bus->reg = $request->reg;
+            $bus->num_seats = $request->num_seats;
+            $bus->active = $request->active;
+        
+        }
+      
+        if($request->save){
+
+            $request->validate([
+                'bus_id' => 'required|exists:buses,id',
+                'route_id' => 'required|exists:routes,id',
+                'price' => 'required|Numeric',
+            ]);
+
+            $bus_route=BusRoute::create([
+                'bus_id'=>$request->bus_id,
+                'route_id'=>$request->route_id,
+                'price'=>$request->price,
+            ]);
+            
+            return redirect()->back()->with(['msg' => 'Bus route successfully created', 'type' => 'bg-success']);
+        }
+
+        if(!$bus->save()){
+            return redirect()->back()->with(['msg' => 'Action Failed Call Developer', 'type' => 'bg-info']);
+        }
+        return redirect()->back()->with(['msg' => 'Bus Updated successfully', 'type' => 'bg-success']);
     }
 
     /**

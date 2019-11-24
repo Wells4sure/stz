@@ -30,6 +30,8 @@ class UpdateOperatorsRequest extends FormRequest
             'phone' => 'required|string',
             'email' => 'nullable|email',
             'address' => 'nullable|string',
+            'reg' => 'string|unique:buses,reg',
+            'num_seats' => 'numeric|min:1',
         ];
     }
 }

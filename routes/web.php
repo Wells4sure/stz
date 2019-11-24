@@ -36,6 +36,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::post('', 'OperatorsController@store')->name('admin.operators.store');
         Route::get('{id}/edit', 'OperatorsController@edit')->name('admin.operators.edit');
         Route::put('{operator}', 'OperatorsController@update')->name('admin.operators.update');
+        Route::get('bus/{id}/edit', 'OperatorsController@editBus')->name('admin.operators.edit.bus');
+        Route::put('bus/{id}/edit', 'OperatorsController@updateBus')->name('admin.operators.update.bus');
     });
     
 });

@@ -36,6 +36,7 @@
 	<script type="text/javascript" src="{{ asset('assets/js/plugins/notifications/sweet_alert.min.js')}}"></script>
 	<script type="text/javascript" src=" {{ asset('assets/js/pages/datatables_basic.js') }}  "></script>
 	<script type="text/javascript" src="  {{ asset('assets/js/pages/layout_fixed_custom.js') }} "></script>
+	<script type="text/javascript" src="{{asset('assets/js/pages/form_select2.js')}}"></script>
 
 	<script type="text/javascript" src="  {{ asset('assets/js/plugins/ui/ripple.min.js') }} "></script>
 	<!-- /theme JS files -->
