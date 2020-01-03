@@ -13,10 +13,11 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+    <script type="text/javascript" src=" {{ asset('assets/js/core/libraries/jquery.min.js') }}  "></script>
+    <script type="text/javascript" src=" {{ asset('assets/js/plugins/forms/selects/select2.min.js') }} "></script>
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+    {{-- <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet"> --}}
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -78,5 +79,7 @@
             @yield('content')
         </main>
     </div>
+    @yield('custom_js')
 </body>
 </html>
+

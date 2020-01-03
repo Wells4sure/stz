@@ -11,13 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.home.index');
-});
+Route::get('/', 'HomeController@index')->name('index');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::Post('/search', 'HomeController@search')->name('home.search');
 
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
