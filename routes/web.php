@@ -17,6 +17,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::Post('/search', 'HomeController@search')->name('home.search');
+Route::Post('/booknow', 'HomeController@booknow')->name('home.booknow');
 
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {

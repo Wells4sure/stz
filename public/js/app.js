@@ -2035,15 +2035,16 @@ __webpack_require__.r(__webpack_exports__);
         console.log('enter From city');
       }
     },
-    bookNow: function bookNow() {
+    booknow: function booknow() {
       if (this.number_seats > 0 && this.phoneNumber != '') {
         axios.post('/booknow', {
           'bus_id': this.requestBus.bus_id,
           'route_id': this.requestBus.route_id,
           'number_seats': this.number_seats,
-          'phone_number': this.phoneNumber
+          'phone_number': this.phoneNumber,
+          'total_amnt': parseFloat(this.result()).toFixed(2)
         }).then(function (res) {
-          alart('done');
+          console.log(res);
         });
       }
     },
@@ -59002,104 +59003,110 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("form", [
-            _c("div", { staticClass: "modal-body" }, [
-              _c("div", { staticClass: "input-group mb-3 input-group-sm" }, [
-                _vm._m(2),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.number_seats,
-                      expression: "number_seats"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "number", min: "1", max: "100" },
-                  domProps: { value: _vm.number_seats },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.number_seats = $event.target.value
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "input-group mb-3 input-group-sm" }, [
-                _vm._m(3),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.phoneNumber,
-                      expression: "phoneNumber"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "number", required: "" },
-                  domProps: { value: _vm.phoneNumber },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.phoneNumber = $event.target.value
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "input-group mb-3 input-group-sm d-flex" },
-                [
-                  _vm._m(4),
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.booknow()
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "input-group mb-3 input-group-sm" }, [
+                  _vm._m(2),
                   _vm._v(" "),
-                  _c("div", { staticClass: "p-2 bg-warning flex-fill" }, [
-                    _c("h1", [
-                      _vm._v("K " + _vm._s(parseFloat(_vm.result()).toFixed(2)))
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.number_seats,
+                        expression: "number_seats"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "number", min: "1", max: "100" },
+                    domProps: { value: _vm.number_seats },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.number_seats = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "input-group mb-3 input-group-sm" }, [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.phoneNumber,
+                        expression: "phoneNumber"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "number", required: "" },
+                    domProps: { value: _vm.phoneNumber },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.phoneNumber = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "input-group mb-3 input-group-sm d-flex" },
+                  [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "p-2 bg-warning flex-fill" }, [
+                      _c("h1", [
+                        _vm._v(
+                          "K " + _vm._s(parseFloat(_vm.result()).toFixed(2))
+                        )
+                      ])
                     ])
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-footer" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger",
-                  attrs: { type: "button", "data-dismiss": "modal" },
-                  on: {
-                    click: function($event) {
-                      return _vm.cancel()
-                    }
-                  }
-                },
-                [_vm._v("CANCEL")]
-              ),
+                  ]
+                )
+              ]),
               _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-success",
-                  on: {
-                    click: function($event) {
-                      return _vm.bookNow()
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button", "data-dismiss": "modal" },
+                    on: {
+                      click: function($event) {
+                        return _vm.cancel()
+                      }
                     }
-                  }
-                },
-                [_vm._v("BOOK NOW")]
-              )
-            ])
-          ])
+                  },
+                  [_vm._v("CANCEL")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  { staticClass: "btn btn-success", attrs: { type: "submit" } },
+                  [_vm._v("BOOK NOW")]
+                )
+              ])
+            ]
+          )
         ])
       ])
     ])

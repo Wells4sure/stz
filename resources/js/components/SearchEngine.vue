@@ -82,7 +82,7 @@
         </div>
         
         <!-- Modal body -->
-            <form >
+            <form @submit.prevent="booknow()">
         <div class="modal-body">
                 <div class="input-group mb-3 input-group-sm">
                     <div class="input-group-prepend">
@@ -114,7 +114,7 @@
         <!-- Modal footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal" @click="cancel()">CANCEL</button>
-          <button class="btn btn-success" @click="bookNow()" >BOOK NOW</button>
+          <button class="btn btn-success" type="submit" >BOOK NOW</button>
         </div>
         </form>
       </div>
@@ -198,7 +198,7 @@
                      console.log('enter From city');
                  }
              },
-             bookNow(){
+             booknow(){
                  if(this.number_seats > 0 && this.phoneNumber !=''){
                      axios.post('/booknow', {
                         'bus_id':this.requestBus.bus_id,
@@ -206,9 +206,10 @@
                         
                         'number_seats':this.number_seats,
                         'phone_number':this.phoneNumber,
-
+                        'total_amnt':parseFloat(this.result()).toFixed(2),
+                        
                      }).then(res => {
-                         alart('done');
+                        console.log(res);
                      })
                  }
              },
