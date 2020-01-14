@@ -5,10 +5,10 @@
 @endsection
 
 @section('content')
+  <div class="bgGradient py-4">
 
-  <div class="py-4"></div>
-
-    <search-engine :routes="{{$routes}}"/>
+    <search-engine  :from_cities="{{$from_cities}}" :to_cities="{{$to_cities}}"/>
+  </div>
 
 
 @endsection

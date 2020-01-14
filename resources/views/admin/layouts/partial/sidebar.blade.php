@@ -54,9 +54,9 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#"><i class="icon-bus"></i> <span>Buses</span></a>
+                            <a href="#"><i class="icon-bus"></i> <span>Reports</span></a>
                             <ul>
-                                <li><a href="" id="layout1">View Buses</a></li>
+                                <li class="{{ Route::currentRouteNamed('admin.reports.buses.index') ? 'active' : '' }}"><a href="{{ route('admin.reports.buses.index') }}" id="layout1">View Buses Reports</a></li>
                               
                             </ul>
                         </li>

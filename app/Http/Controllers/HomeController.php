@@ -9,6 +9,7 @@ use App\User;
 use App\Bus;
 use App\Route;
 use App\BusRoute;
+use App\bus_booking;
 use Bmatovu\MtnMomo\Products\Collection;
 use Bmatovu\MtnMomo\Exceptions\CollectionRequestException;
 class HomeController extends Controller
@@ -30,8 +31,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $routes =Route::get();
-        return view('frontend.home.index', compact('routes'));
+        $from_cities =Route::select('origin')->distinct()->get();
+
+        $to_cities =Route::select('destination')->distinct()->get();
+      
+      
+        return view('frontend.home.index', compact('from_cities','to_cities'));
     }
 
     public function search(Request $request)
@@ -83,14 +88,26 @@ class HomeController extends Controller
            
             if($momoStatus=='PENDING'){
                 //Request user Pin
-                dd ('Please Enter your PIN '. $payerNum.' For '.$paidAmnt);
+                return array('msg'=>"Enter your Pin to complete transaction")  ;
 
-                //login for requesting pin
+            }elseif($momoStatus=='SUCCESSFUL'){
+                   //Record the booking
+                   bus_booking::create([
+                        'bus_id'=>$request->bus_id,
+                        'route_id'=>$request->route_id,
+                        'amount_paid'=>$paidAmnt,
+                        'phone_number'=>$payerNum,
+                        'number_seats'=>$request->number_seats,
+                        'travel_date'=>$request->travel_date,
+                        'transaction_number'=>$transactionId
+                   ]);
+                return array('msg'=>"Thank you for using Smart Tickets Zambia ;) Travel safely!");
                 
-            }elseif($momoStatus=='FAILED'){
-                dd ('Transaction Failed '. $payerNum.' For '.$paidAmnt);
+           }elseif($momoStatus=='FAILED'){
+            return array('msg'=>"Transaction failed try again letter")  ;
+          
             }
-
+         
  
         
     }

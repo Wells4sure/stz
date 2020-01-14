@@ -1970,24 +1970,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     'date-picker': vue_bootstrap_datetimepicker__WEBPACK_IMPORTED_MODULE_0___default.a
   },
-  props: ['routes'],
+  props: ['from_cities', 'to_cities'],
   data: function data() {
     return {
       spinner: false,
+      spinner2: false,
       buses: [],
       fromCity: '',
       toCity: '',
       errMsg: '',
+      errMsg2: '',
+      resMsg: '',
       requestBus: [],
       phoneNumber: '',
       number_seats: 1,
-      travelDate: null,
+      travel_date: null,
       options: {
         format: 'DD/MM/YYYY h:mm',
         useCurrent: false,
@@ -1997,7 +2023,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.travelDate = this.$moment().add(1, 'days').format('DD/MM/YYYY h:mm');
+    this.travel_date = this.$moment().add(1, 'days').format('DD/MM/YYYY h:mm');
   },
   watch: {
     toCity: function toCity(value, oldValue) {
@@ -2036,21 +2062,37 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     booknow: function booknow() {
+      var _this2 = this;
+
       if (this.number_seats > 0 && this.phoneNumber != '') {
+        this.spinner2 = true; //convert the date
+
+        var td = this.travel_date;
+        td = this.$moment().format('YYYY-MM-DD h:mm');
         axios.post('/booknow', {
           'bus_id': this.requestBus.bus_id,
           'route_id': this.requestBus.route_id,
           'number_seats': this.number_seats,
+          'travel_date': td,
           'phone_number': this.phoneNumber,
           'total_amnt': parseFloat(this.result()).toFixed(2)
         }).then(function (res) {
-          console.log(res);
+          _this2.spinner2 = false;
+          _this2.resMsg = res.data;
+          return window.location.assign("/", 10000);
+        })["catch"](function (err) {
+          _this2.spinner2 = false;
+          _this2.errMsg2 = err.response.data.errors;
         });
       }
     },
     cancel: function cancel() {
       this.requestBus = [];
       this.number_seats = 1;
+    },
+    clearMsg: function clearMsg() {
+      this.errMsg2 = '';
+      this.resMsg = '';
     }
   }
 });
@@ -6514,7 +6556,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".myText[data-v-4187ccf5] {\n  position: absolute;\n  left: 20px;\n  top: 25px;\n}", ""]);
+exports.push([module.i, ".myText[data-v-4187ccf5] {\n  position: absolute;\n  left: 20px;\n  top: 25px;\n}\n.dotted-line[data-v-4187ccf5] {\n  border-bottom: 2px dotted dodgerblue;\n}\n.result-media[data-v-4187ccf5] {\n  padding: 6px;\n}", ""]);
 
 // exports
 
@@ -58777,9 +58819,9 @@ var render = function() {
                         [_vm._v("Select Where you are coming from")]
                       ),
                       _vm._v(" "),
-                      _vm._l(_vm.routes, function(route) {
-                        return _c("option", { key: route.id }, [
-                          _vm._v(_vm._s(route.origin))
+                      _vm._l(_vm.from_cities, function(from_city) {
+                        return _c("option", { key: from_city.id }, [
+                          _vm._v(_vm._s(from_city.origin))
                         ])
                       })
                     ],
@@ -58829,9 +58871,9 @@ var render = function() {
                         [_vm._v("Select Where you are going")]
                       ),
                       _vm._v(" "),
-                      _vm._l(_vm.routes, function(route) {
-                        return _c("option", { key: route.id }, [
-                          _vm._v(_vm._s(route.destination))
+                      _vm._l(_vm.to_cities, function(to_city) {
+                        return _c("option", { key: to_city.id }, [
+                          _vm._v(_vm._s(to_city.destination))
                         ])
                       })
                     ],
@@ -58850,11 +58892,11 @@ var render = function() {
                     _c("date-picker", {
                       attrs: { config: _vm.options },
                       model: {
-                        value: _vm.travelDate,
+                        value: _vm.travel_date,
                         callback: function($$v) {
-                          _vm.travelDate = $$v
+                          _vm.travel_date = $$v
                         },
-                        expression: "travelDate"
+                        expression: "travel_date"
                       }
                     })
                   ],
@@ -58862,11 +58904,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-                [_vm._v(" Find Buses ")]
-              )
+              _vm._m(0)
             ]
           )
         ])
@@ -58881,7 +58919,7 @@ var render = function() {
         [
           _vm.spinner
             ? _c("div", { staticClass: "d-flex justify-content-center" }, [
-                _vm._m(0)
+                _vm._m(1)
               ])
             : _vm._e(),
           _vm._v(" "),
@@ -58902,70 +58940,85 @@ var render = function() {
               )
             : _vm._e(),
           _vm._v(" "),
-          _vm.buses.lenght != 0
-            ? _c("p", [
-                _c(
-                  "ul",
-                  { staticClass: "list-unstyled " },
-                  _vm._l(_vm.buses, function(bus, index) {
-                    return _c("li", { key: bus.id, staticClass: "media" }, [
-                      _c("img", {
-                        staticClass: "mr-3",
-                        attrs: {
-                          src: "assets/images/plcholder.png",
-                          alt: "...",
-                          width: "55"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "media-body" }, [
-                        _c("h5", { staticClass: "mt-0 mb-1" }, [
-                          _vm._v(" " + _vm._s(bus.name))
-                        ]),
-                        _vm._v(" "),
-                        _vm._m(1, true),
-                        _vm._v(" "),
-                        _c("hr"),
-                        _vm._v(" "),
-                        _c("p", [
-                          _c("strong", [_vm._v("Ratings: ")]),
-                          _vm._v(" "),
-                          _c("i", { staticClass: "fas fa-star" }),
-                          _vm._v(" "),
-                          _c("i", { staticClass: "fas fa-star" }),
-                          _c("i", { staticClass: "fas fa-star" }),
-                          _c("i", { staticClass: "fas fa-star" }),
-                          _vm._v("   |   "),
-                          _c("strong", [_vm._v("Seats:")]),
-                          _vm._v(
-                            "    " +
-                              _vm._s(bus.num_seats) +
-                              "\n                                    "
-                          ),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-success float-right",
-                              attrs: {
-                                "data-toggle": "modal",
-                                "data-target": "#myModal"
-                              },
-                              on: {
-                                click: function($event) {
-                                  return _vm.selectedBus(index)
-                                }
-                              }
-                            },
-                            [_vm._v(" REQUEST BOOKING ")]
-                          )
-                        ])
-                      ])
-                    ])
-                  }),
-                  0
+          _vm.buses.length > 0
+            ? _c("h3", { staticClass: "py-4 text-center" }, [
+                _vm._v(
+                  "\n                        SEARCH RESULTS\n                        "
                 )
               ])
-            : _vm._e()
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "ul",
+            { staticClass: "list-unstyled " },
+            [
+              _vm._l(_vm.buses, function(bus, index) {
+                return _c(
+                  "li",
+                  {
+                    key: bus.id,
+                    staticClass: "media dotted-line result-media py-4"
+                  },
+                  [
+                    _c("img", {
+                      staticClass: "mr-3",
+                      attrs: {
+                        src: "assets/images/plcholder.png",
+                        alt: "...",
+                        width: "55"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "media-body" }, [
+                      _c("h3", { staticClass: "mt-0 mb-1" }, [
+                        _vm._v(" " + _vm._s(bus.name))
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(2, true),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("p", [
+                        _c("strong", [_vm._v("Ratings: ")]),
+                        _vm._v(" "),
+                        _c("i", { staticClass: "fas fa-star" }),
+                        _vm._v(" "),
+                        _c("i", { staticClass: "fas fa-star" }),
+                        _c("i", { staticClass: "fas fa-star" }),
+                        _c("i", { staticClass: "fas fa-star" }),
+                        _vm._v("   |   "),
+                        _c("strong", [_vm._v("Seats:")]),
+                        _vm._v(
+                          "    " +
+                            _vm._s(bus.num_seats) +
+                            "\n                                    "
+                        ),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success float-right",
+                            attrs: {
+                              "data-toggle": "modal",
+                              "data-target": "#myModal"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.selectedBus(index)
+                              }
+                            }
+                          },
+                          [_vm._v(" REQUEST BOOKING ")]
+                        )
+                      ])
+                    ])
+                  ]
+                )
+              }),
+              _vm._v(" "),
+              _c("hr")
+            ],
+            2
+          )
         ]
       )
     ]),
@@ -59015,8 +59068,42 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "modal-body" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  { staticStyle: { margin: "10px", "text-aling": "center" } },
+                  [_vm._v("Pay with your mtn momo ")]
+                ),
+                _vm._v(" "),
+                _vm.spinner2
+                  ? _c(
+                      "div",
+                      { staticClass: "d-flex justify-content-center" },
+                      [_vm._m(4)]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.errMsg2
+                  ? _c("div", { staticClass: "alert alert-danger" }, [
+                      _vm._v(
+                        "\n                   Invalid phone number or number of seats please try again\n\n                "
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.resMsg
+                  ? _c("div", { staticClass: "alert alert-primary" }, [
+                      _vm._v(
+                        "\n                  " +
+                          _vm._s(_vm.resMsg.msg) +
+                          "\n                "
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
                 _c("div", { staticClass: "input-group mb-3 input-group-sm" }, [
-                  _vm._m(2),
+                  _vm._m(5),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -59031,6 +59118,9 @@ var render = function() {
                     attrs: { type: "number", min: "1", max: "100" },
                     domProps: { value: _vm.number_seats },
                     on: {
+                      change: function($event) {
+                        return _vm.clearMsg()
+                      },
                       input: function($event) {
                         if ($event.target.composing) {
                           return
@@ -59042,7 +59132,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "input-group mb-3 input-group-sm" }, [
-                  _vm._m(3),
+                  _vm._m(6),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -59057,6 +59147,9 @@ var render = function() {
                     attrs: { type: "number", required: "" },
                     domProps: { value: _vm.phoneNumber },
                     on: {
+                      change: function($event) {
+                        return _vm.clearMsg()
+                      },
                       input: function($event) {
                         if ($event.target.composing) {
                           return
@@ -59071,7 +59164,7 @@ var render = function() {
                   "div",
                   { staticClass: "input-group mb-3 input-group-sm d-flex" },
                   [
-                    _vm._m(4),
+                    _vm._m(7),
                     _vm._v(" "),
                     _c("div", { staticClass: "p-2 bg-warning flex-fill" }, [
                       _c("h1", [
@@ -59101,7 +59194,14 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "button",
-                  { staticClass: "btn btn-success", attrs: { type: "submit" } },
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: {
+                      type: "submit",
+                      "data-toggle": "modal",
+                      "data-target": "#exampleModal"
+                    }
+                  },
                   [_vm._v("BOOK NOW")]
                 )
               ])
@@ -59113,6 +59213,21 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "d-flex justify-content-center" }, [
+      _c(
+        "button",
+        {
+          staticClass: "primaryBtn font24 latoBlack widgetSearchBtn ",
+          attrs: { type: "submit" }
+        },
+        [_vm._v(" Search ")]
+      )
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -59137,6 +59252,35 @@ var staticRenderFns = [
       _c("strong", [_vm._v("Arrv Est Time:")]),
       _vm._v(" 08 :30 AM")
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "d-flex justify-content-center" }, [
+      _c("img", {
+        attrs: {
+          src: "assets/images/mtn.jpg",
+          alt: "Pay With MTN MOMO",
+          width: "150",
+          height: "100"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "spinner-grow",
+        staticStyle: { width: "3rem", height: "3rem" },
+        attrs: { role: "status" }
+      },
+      [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
+    )
   },
   function() {
     var _vm = this

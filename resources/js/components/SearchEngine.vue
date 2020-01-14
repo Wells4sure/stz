@@ -14,7 +14,7 @@
                                 v-model="fromCity"
                                 >
                                 <option value="" disabled selected>Select Where you are coming from</option>
-                                <option  v-for="route in routes" :key='route.id'>{{route.origin}}</option>
+                                <option  v-for="from_city in from_cities" :key='from_city.id'>{{from_city.origin}}</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-4">
@@ -25,15 +25,17 @@
                                  @change="changeResults"
                                 >
                                 <option value="" disabled selected>Select Where you are going</option>
-                                 <option v-for="route in routes" :key='route.id' >{{route.destination}}</option>
+                                 <option v-for="to_city in to_cities" :key='to_city.id' >{{to_city.destination}}</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="travel_date">Travel Date</label>
-                               <date-picker  v-model="travelDate" :config="options"></date-picker>
+                               <date-picker  v-model="travel_date" :config="options"></date-picker>
                             </div>
                         </div>
-                        <button class="btn btn-primary" type="submit"> Find Buses </button>
+                        <div class="d-flex justify-content-center">
+                        <button class="primaryBtn font24 latoBlack widgetSearchBtn " type="submit"> Search </button>
+                        </div>
                    </form>
                 </div>
                 </div>
@@ -50,12 +52,14 @@
                     <div class="alert alert-danger mt-4" role="alert" v-if="errMsg">
                        <p> We could not understand your request please try again </p>
                     </div>
-                    <p v-if="buses.lenght != 0">
+                    <h3 class="py-4 text-center" v-if="buses.length > 0">
+                        SEARCH RESULTS
+                        </h3>
                     <ul class="list-unstyled ">
-                        <li class="media"  v-for="(bus, index) in buses" :key="bus.id">
+                        <li class="media dotted-line result-media py-4"  v-for="(bus, index) in buses" :key="bus.id" >
                             <img src="assets/images/plcholder.png" class="mr-3" alt="..." width="55">
                             <div class="media-body">
-                            <h5 class="mt-0 mb-1"> {{bus.name}}</h5>
+                            <h3 class="mt-0 mb-1"> {{bus.name}}</h3>
                                 <p> <strong>Dept Est Time:</strong> 05 :30 AM &nbsp; | &nbsp; <strong>Arrv Est Time:</strong> 08 :30 AM</p>
                                 <hr>
                                 <p>  <strong>Ratings: </strong> <i class="fas fa-star" ></i>
@@ -64,9 +68,11 @@
                                 </p>
                             </div>
                         </li>
+                            <hr>
+                        
                         
                     </ul>
-                </p>
+                
             </div>
         </div>
 <!-- The Modal -->
@@ -82,19 +88,35 @@
         </div>
         
         <!-- Modal body -->
-            <form @submit.prevent="booknow()">
+        <form @submit.prevent="booknow()">
         <div class="modal-body">
+            <div class="d-flex justify-content-center">
+                <img src="assets/images/mtn.jpg" alt="Pay With MTN MOMO" width="150" height="100">
+            </div>
+            <p style="margin:10px; text-aling:center;">Pay with your mtn momo </p>
+                    <div class="d-flex justify-content-center" v-if="spinner2">
+                        <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                <div class="alert alert-danger" v-if="errMsg2">
+                   Invalid phone number or number of seats please try again
+
+                </div>                
+                <div class="alert alert-primary" v-if="resMsg">
+                  {{resMsg.msg}}
+                </div>
                 <div class="input-group mb-3 input-group-sm">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Number of Seats</span>
                     </div>
-                    <input type="number" class="form-control" min="1" max="100" v-model="number_seats">
+                    <input type="number" class="form-control" min="1" max="100" v-model="number_seats"  @change="clearMsg()">
                 </div>                
                 <div class="input-group mb-3 input-group-sm">
                     <div class="input-group-prepend">
                     <span class="input-group-text">Phone Number</span>
                     </div>
-                    <input type="number" class="form-control" v-model="phoneNumber" required>
+                    <input type="number" class="form-control" v-model="phoneNumber" required @change="clearMsg()">
                 </div>
                 <div class="input-group mb-3 input-group-sm d-flex" >
                     <div class="p-2 bg-info flex-fill">
@@ -114,9 +136,10 @@
         <!-- Modal footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal" @click="cancel()">CANCEL</button>
-          <button class="btn btn-success" type="submit" >BOOK NOW</button>
+          <button class="btn btn-success" type="submit" data-toggle="modal" data-target="#exampleModal" >BOOK NOW</button>
         </div>
         </form>
+
       </div>
     </div>
   </div>
@@ -136,19 +159,23 @@
         },
         
         props:[
-            'routes'
+            'from_cities',
+            'to_cities',
         ],
       data() {
           return{
               spinner : false,
+              spinner2 : false,
               buses : [],
               fromCity:'',
               toCity:'',
               errMsg:'',
+              errMsg2:'',
+              resMsg:'',
               requestBus:[],
               phoneNumber:'',
               number_seats:1,
-              travelDate: null,
+              travel_date: null,
                 options: {
                
                 format: 'DD/MM/YYYY h:mm',
@@ -159,7 +186,7 @@
           }
       },
       created(){
-           this.travelDate = this.$moment().add(1, 'days').format('DD/MM/YYYY h:mm');
+           this.travel_date = this.$moment().add(1, 'days').format('DD/MM/YYYY h:mm');
       },
       watch: {
         toCity: function (value, oldValue) { 
@@ -200,16 +227,25 @@
              },
              booknow(){
                  if(this.number_seats > 0 && this.phoneNumber !=''){
+                     this.spinner2 = true;
+                     //convert the date
+                     let td =this.travel_date;
+                     td= this.$moment().format('YYYY-MM-DD h:mm');
                      axios.post('/booknow', {
                         'bus_id':this.requestBus.bus_id,
                         'route_id':this.requestBus.route_id,
-                        
-                        'number_seats':this.number_seats,
+                         'number_seats':this.number_seats,
+                        'travel_date':td,
                         'phone_number':this.phoneNumber,
                         'total_amnt':parseFloat(this.result()).toFixed(2),
                         
                      }).then(res => {
-                        console.log(res);
+                         this.spinner2 =false;
+                        this.resMsg=res.data;
+                        return window.location.assign("/",10000)
+                     }).catch(err=>{
+                          this.spinner2 =false;
+                         this.errMsg2 =err.response.data.errors;
                      })
                  }
              },
@@ -218,7 +254,11 @@
                 this.requestBus=[]
                 this.number_seats=1
             
-             }
+             },
+            clearMsg(){
+                this.errMsg2='';
+                this.resMsg ='';
+            }
          },
     }
 </script>
@@ -227,5 +267,11 @@
             position: absolute;
             left: 20px;
             top: 25px;
+    }
+    .dotted-line{
+        border-bottom: 2px dotted dodgerblue;
+    }
+    .result-media{
+        padding: 6px;
     }
 </style>
