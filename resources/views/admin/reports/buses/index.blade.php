@@ -64,7 +64,7 @@
                         <td>{{$bus_booking->transaction_number}}</td>
                         <td>{{$bus_booking->number_seats}}</td>
                         <td>{{$bus_booking->amount_paid}}</td>
-                        <td>{{$bus_booking->bus->operator->name}}</td>
+                    <td>{{$bus_booking->bus->operator->name}} / {{$bus_booking->bus->reg}}</td>
                         <td>{{$bus_booking->route->name}}</td>
                         <td>{{$bus_booking->travel_date}}</td>
                     </tr>

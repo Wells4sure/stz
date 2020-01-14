@@ -8,29 +8,29 @@
                     <h5 class="card-title">  WHERE TO ?</h5>
                    <form @submit.prevent="searchBus" >
                        <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-4" style="border: 1px solid #e3e3e3;">
                                 <label for="from_city">From</label>
                                 <select class="form-control" id="from_city"
                                 v-model="fromCity"
                                 >
-                                <option value="" disabled selected>Select Where you are coming from</option>
+                                <option value="" disabled selected>Select Where</option>
                                 <option  v-for="from_city in from_cities" :key='from_city.id'>{{from_city.origin}}</option>
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-4"  style="border: 1px solid #e3e3e3;">
                                 <label for="to_city">To</label>
                                 
                                 <select class="form-control" id="to_city"
                                  v-model="toCity"
                                  @change="changeResults"
                                 >
-                                <option value="" disabled selected>Select Where you are going</option>
+                                <option value="" disabled selected>Select Where </option>
                                  <option v-for="to_city in to_cities" :key='to_city.id' >{{to_city.destination}}</option>
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-4"  style="border: 1px solid #e3e3e3;">
                                 <label for="travel_date">Travel Date</label>
-                               <date-picker  v-model="travel_date" :config="options"></date-picker>
+                               <date-picker id="travel_date" v-model="travel_date" :config="options"></date-picker>
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
@@ -52,9 +52,11 @@
                     <div class="alert alert-danger mt-4" role="alert" v-if="errMsg">
                        <p> We could not understand your request please try again </p>
                     </div>
+                    
                     <h3 class="py-4 text-center" v-if="buses.length > 0">
                         SEARCH RESULTS
-                        </h3>
+                        </h3>                    
+      
                     <ul class="list-unstyled ">
                         <li class="media dotted-line result-media py-4"  v-for="(bus, index) in buses" :key="bus.id" >
                             <img src="assets/images/plcholder.png" class="mr-3" alt="..." width="55">

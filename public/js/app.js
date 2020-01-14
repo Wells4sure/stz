@@ -1993,6 +1993,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -58778,76 +58780,32 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "form-row" }, [
-                _c("div", { staticClass: "form-group col-md-4" }, [
-                  _c("label", { attrs: { for: "from_city" } }, [
-                    _vm._v("From")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.fromCity,
-                          expression: "fromCity"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { id: "from_city" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.fromCity = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "option",
-                        { attrs: { value: "", disabled: "", selected: "" } },
-                        [_vm._v("Select Where you are coming from")]
-                      ),
-                      _vm._v(" "),
-                      _vm._l(_vm.from_cities, function(from_city) {
-                        return _c("option", { key: from_city.id }, [
-                          _vm._v(_vm._s(from_city.origin))
-                        ])
-                      })
-                    ],
-                    2
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group col-md-4" }, [
-                  _c("label", { attrs: { for: "to_city" } }, [_vm._v("To")]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.toCity,
-                          expression: "toCity"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { id: "to_city" },
-                      on: {
-                        change: [
-                          function($event) {
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group col-md-4",
+                    staticStyle: { border: "1px solid #e3e3e3" }
+                  },
+                  [
+                    _c("label", { attrs: { for: "from_city" } }, [
+                      _vm._v("From")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fromCity,
+                            expression: "fromCity"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { id: "from_city" },
+                        on: {
+                          change: function($event) {
                             var $$selectedVal = Array.prototype.filter
                               .call($event.target.options, function(o) {
                                 return o.selected
@@ -58856,41 +58814,102 @@ var render = function() {
                                 var val = "_value" in o ? o._value : o.value
                                 return val
                               })
-                            _vm.toCity = $event.target.multiple
+                            _vm.fromCity = $event.target.multiple
                               ? $$selectedVal
                               : $$selectedVal[0]
-                          },
-                          _vm.changeResults
-                        ]
-                      }
-                    },
-                    [
-                      _c(
-                        "option",
-                        { attrs: { value: "", disabled: "", selected: "" } },
-                        [_vm._v("Select Where you are going")]
-                      ),
-                      _vm._v(" "),
-                      _vm._l(_vm.to_cities, function(to_city) {
-                        return _c("option", { key: to_city.id }, [
-                          _vm._v(_vm._s(to_city.destination))
-                        ])
-                      })
-                    ],
-                    2
-                  )
-                ]),
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "option",
+                          { attrs: { value: "", disabled: "", selected: "" } },
+                          [_vm._v("Select Where")]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.from_cities, function(from_city) {
+                          return _c("option", { key: from_city.id }, [
+                            _vm._v(_vm._s(from_city.origin))
+                          ])
+                        })
+                      ],
+                      2
+                    )
+                  ]
+                ),
                 _vm._v(" "),
                 _c(
                   "div",
-                  { staticClass: "form-group col-md-4" },
+                  {
+                    staticClass: "form-group col-md-4",
+                    staticStyle: { border: "1px solid #e3e3e3" }
+                  },
+                  [
+                    _c("label", { attrs: { for: "to_city" } }, [_vm._v("To")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.toCity,
+                            expression: "toCity"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { id: "to_city" },
+                        on: {
+                          change: [
+                            function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.toCity = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            },
+                            _vm.changeResults
+                          ]
+                        }
+                      },
+                      [
+                        _c(
+                          "option",
+                          { attrs: { value: "", disabled: "", selected: "" } },
+                          [_vm._v("Select Where ")]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.to_cities, function(to_city) {
+                          return _c("option", { key: to_city.id }, [
+                            _vm._v(_vm._s(to_city.destination))
+                          ])
+                        })
+                      ],
+                      2
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group col-md-4",
+                    staticStyle: { border: "1px solid #e3e3e3" }
+                  },
                   [
                     _c("label", { attrs: { for: "travel_date" } }, [
                       _vm._v("Travel Date")
                     ]),
                     _vm._v(" "),
                     _c("date-picker", {
-                      attrs: { config: _vm.options },
+                      attrs: { id: "travel_date", config: _vm.options },
                       model: {
                         value: _vm.travel_date,
                         callback: function($$v) {
