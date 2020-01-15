@@ -4,7 +4,7 @@
          
             <div class="card col-lg-8">
   
-                <div class="card-body">
+                <div class="card-body" >
                     <h5 class="card-title">  WHERE TO ?</h5>
                    <form @submit.prevent="searchBus" >
                        <div class="form-row">
@@ -41,7 +41,7 @@
                 </div>
                 
 
-                  <div class="card col-lg-8" :class="[spinner == true || errMsg==='' ? 'mt-4' : '']">
+                  <div class="card col-lg-8" :class="[spinner == true || errMsg==='' ? 'mt-4' : '']" id="result-box">
 
                     <div class="d-flex justify-content-center" v-if="spinner">
                         <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
@@ -49,20 +49,21 @@
                         </div>
                     </div>
                       
-                    <div class="alert alert-danger mt-4" role="alert" v-if="errMsg">
+                    <div class="alert alert-danger mt-4 dotted-line" role="alert" v-if="errMsg">
                        <p> We could not understand your request please try again </p>
                     </div>
                     
-                    <h3 class="py-4 text-center" v-if="buses.length > 0">
+                    <h3 class="py-4 text-center dotted-line" v-if="buses.length > 0">
                         SEARCH RESULTS
-                        </h3>                    
+                        </h3>   
+                                
       
                     <ul class="list-unstyled ">
                         <li class="media dotted-line result-media py-4"  v-for="(bus, index) in buses" :key="bus.id" >
                             <img src="assets/images/plcholder.png" class="mr-3" alt="..." width="55">
                             <div class="media-body">
                             <h3 class="mt-0 mb-1"> {{bus.name}}</h3>
-                                <p> <strong>Dept Est Time:</strong> 05 :30 AM &nbsp; | &nbsp; <strong>Arrv Est Time:</strong> 08 :30 AM</p>
+                                <p> <strong>Dept Est Time:</strong> {{bus.bus_time | moment('h:mm DD/MM/YYYY')}} &nbsp; | &nbsp; <strong>Arrv Est Time:</strong> 13 :30 PM</p>
                                 <hr>
                                 <p>  <strong>Ratings: </strong> <i class="fas fa-star" ></i>
                                 <i class="fas fa-star" ></i><i class="fas fa-star" ></i><i class="fas fa-star" ></i> &nbsp; | &nbsp; <strong>Seats:</strong>  &nbsp; {{bus.num_seats}}
@@ -91,7 +92,7 @@
         
         <!-- Modal body -->
         <form @submit.prevent="booknow()">
-        <div class="modal-body">
+        <div class="modal-body" >
             <div class="d-flex justify-content-center">
                 <img src="assets/images/mtn.jpg" alt="Pay With MTN MOMO" width="150" height="100">
             </div>
@@ -192,6 +193,7 @@
       },
       watch: {
         toCity: function (value, oldValue) { 
+            this.buses =[];
             this.searchBus();
         },
 
@@ -275,5 +277,8 @@
     }
     .result-media{
         padding: 6px;
+    }
+    #result-box{
+         box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.16);
     }
 </style>

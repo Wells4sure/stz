@@ -17,6 +17,7 @@ class RoutesTableSeeder extends Seeder
             'origin'   =>   'Lusaka',
             'destination'   =>   'Ndola',
             'slug'   =>   'lsk-ndl',
+            'price'   =>   170,
         ]);
     }
 }

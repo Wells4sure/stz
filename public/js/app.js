@@ -1995,6 +1995,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2029,6 +2030,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     toCity: function toCity(value, oldValue) {
+      this.buses = [];
       this.searchBus();
     }
   },
@@ -6558,7 +6560,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".myText[data-v-4187ccf5] {\n  position: absolute;\n  left: 20px;\n  top: 25px;\n}\n.dotted-line[data-v-4187ccf5] {\n  border-bottom: 2px dotted dodgerblue;\n}\n.result-media[data-v-4187ccf5] {\n  padding: 6px;\n}", ""]);
+exports.push([module.i, ".myText[data-v-4187ccf5] {\n  position: absolute;\n  left: 20px;\n  top: 25px;\n}\n.dotted-line[data-v-4187ccf5] {\n  border-bottom: 2px dotted dodgerblue;\n}\n.result-media[data-v-4187ccf5] {\n  padding: 6px;\n}\n#result-box[data-v-4187ccf5] {\n  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.16);\n}", ""]);
 
 // exports
 
@@ -58933,7 +58935,8 @@ var render = function() {
         "div",
         {
           staticClass: "card col-lg-8",
-          class: [_vm.spinner == true || _vm.errMsg === "" ? "mt-4" : ""]
+          class: [_vm.spinner == true || _vm.errMsg === "" ? "mt-4" : ""],
+          attrs: { id: "result-box" }
         },
         [
           _vm.spinner
@@ -58946,7 +58949,7 @@ var render = function() {
             ? _c(
                 "div",
                 {
-                  staticClass: "alert alert-danger mt-4",
+                  staticClass: "alert alert-danger mt-4 dotted-line",
                   attrs: { role: "alert" }
                 },
                 [
@@ -58960,7 +58963,7 @@ var render = function() {
             : _vm._e(),
           _vm._v(" "),
           _vm.buses.length > 0
-            ? _c("h3", { staticClass: "py-4 text-center" }, [
+            ? _c("h3", { staticClass: "py-4 text-center dotted-line" }, [
                 _vm._v(
                   "\n                        SEARCH RESULTS\n                        "
                 )
@@ -58993,7 +58996,18 @@ var render = function() {
                         _vm._v(" " + _vm._s(bus.name))
                       ]),
                       _vm._v(" "),
-                      _vm._m(2, true),
+                      _c("p", [
+                        _c("strong", [_vm._v("Dept Est Time:")]),
+                        _vm._v(
+                          " " +
+                            _vm._s(
+                              _vm._f("moment")(bus.bus_time, "h:mm DD/MM/YYYY")
+                            ) +
+                            "   |   "
+                        ),
+                        _c("strong", [_vm._v("Arrv Est Time:")]),
+                        _vm._v(" 13 :30 PM")
+                      ]),
                       _vm._v(" "),
                       _c("hr"),
                       _vm._v(" "),
@@ -59087,7 +59101,7 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "modal-body" }, [
-                _vm._m(3),
+                _vm._m(2),
                 _vm._v(" "),
                 _c(
                   "p",
@@ -59099,7 +59113,7 @@ var render = function() {
                   ? _c(
                       "div",
                       { staticClass: "d-flex justify-content-center" },
-                      [_vm._m(4)]
+                      [_vm._m(3)]
                     )
                   : _vm._e(),
                 _vm._v(" "),
@@ -59122,7 +59136,7 @@ var render = function() {
                   : _vm._e(),
                 _vm._v(" "),
                 _c("div", { staticClass: "input-group mb-3 input-group-sm" }, [
-                  _vm._m(5),
+                  _vm._m(4),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -59151,7 +59165,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "input-group mb-3 input-group-sm" }, [
-                  _vm._m(6),
+                  _vm._m(5),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -59183,7 +59197,7 @@ var render = function() {
                   "div",
                   { staticClass: "input-group mb-3 input-group-sm d-flex" },
                   [
-                    _vm._m(7),
+                    _vm._m(6),
                     _vm._v(" "),
                     _c("div", { staticClass: "p-2 bg-warning flex-fill" }, [
                       _c("h1", [
@@ -59260,17 +59274,6 @@ var staticRenderFns = [
       },
       [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("strong", [_vm._v("Dept Est Time:")]),
-      _vm._v(" 05 :30 AM   |   "),
-      _c("strong", [_vm._v("Arrv Est Time:")]),
-      _vm._v(" 08 :30 AM")
-    ])
   },
   function() {
     var _vm = this

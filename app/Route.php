@@ -18,5 +18,5 @@ class Route extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
-    protected $fillable =['name','origin','destination'];
+    protected $fillable =['name','origin','destination','price'];
 }

@@ -51,9 +51,11 @@ class HomeController extends Controller
        //search buses
         //check if bus is active
        $query =DB::table('bus_routes')
+       ->join('routes', 'bus_routes.route_id', '=', 'routes.id')
        ->join('buses', 'bus_routes.bus_id', '=', 'buses.id')
        ->join('operators', 'buses.operator_id', '=', 'operators.id')
        ->where('bus_routes.route_id', '=', $route_id)
+    //    ->where('bus_routes.bus_time', 'like', $request->bus_time)
        ->where('buses.active', '=', 1) //Gets only active buses
        ->get();
       return $query;

@@ -151,10 +151,21 @@
                                        </div>
                                    </div>
                                    <div class="form-group">
-                                       <label class="control-label col-sm-3">Price</label>
+                                       <label class="control-label col-sm-3">Bus Name</label>
                                        <div class="col-sm-9">
-                                           <input type="number" min="1" max="9999" placeholder="Enter Price" name="price" class="form-control" value="{{ old('price') }}">
+                                           <input type="text"  placeholder="Enter Bus Name" name="bus_name" class="form-control" value="{{ old('bus_name') }}">
                                        </div>
+                                   </div>                                   
+                                   <div class="form-group">
+                                       <label class="control-label col-sm-3">Bus Time</label>
+                                       
+                                        <div class="input-group col-sm-9">
+											<span class="input-group-btn">
+												<button type="button" class="btn btn-primary btn-icon" id="ButtonCreationDemoButton"><i class="icon-calendar3"></i></button>
+											</span>
+											<input type="text" class="form-control" id="ButtonCreationDemoInput" name="bus_time" placeholder="Select a date" value="{{ old('bus_time') }}">
+										</div>
+                                      
                                    </div>
 
                                    <button type="submit" name="save" value="1" class="btn btn-success pull-right">SAVE</button>
@@ -171,7 +182,7 @@
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h6 class="panel-title">Bus Routs<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
+                    <h6 class="panel-title">Bus Routes<a class="heading-elements-toggle"><i class="icon-more"></i></a></h6>
                     <div class="heading-elements">
                         <ul class="icons-list">
                             <li><a data-action="collapse"></a></li>
@@ -185,7 +196,8 @@
                    <table class="table table-hover">
                        <thead>
                            <th>Route</th>
-                           <th>Price</th>
+                           <th>Bus name</th>
+                           <th>Bus Time</th>
                            <th></th>
 
                        </thead>
@@ -193,7 +205,8 @@
                            @foreach ($bus->bus_routes as $bus_route)
                                <tr>
                                <td>{{ $bus_route->route->name}}</td>
-                               <td>{{ $bus_route->price}}</td>
+                               <td>{{ $bus_route->bus_name}}</td>
+                               <td>{{ $bus_route->bus_time}}</td>
                                <td><a href="" class="btn btn-danger"> <i class="icon-trash"></i> </td>
                                </tr>
                            @endforeach

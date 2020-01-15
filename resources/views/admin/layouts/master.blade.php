@@ -29,10 +29,16 @@
 	<script type="text/javascript" src="{{ asset('assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
 	<script type="text/javascript" src=" {{ asset('assets/js/plugins/ui/moment/moment.min.js') }} "></script>
 	<script type="text/javascript" src=" {{ asset('assets/js/plugins/pickers/daterangepicker.js') }} "></script>
+	<script type="text/javascript" src=" {{ asset('assets/js/plugins/pickers/anytime.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('assets/js/plugins/pickers/pickadate/picker.js') }} "></script>
+	<script type="text/javascript" src="{{ asset('assets/js/plugins/pickers/pickadate/picker.date.js') }} "></script>
+	<script type="text/javascript" src="{{ asset('assets/js/plugins/pickers/pickadate/picker.time.js') }} "></script>
+	<script type="text/javascript" src="{{ asset('assets/js/plugins/pickers/pickadate/legacy.js') }} "></script>
 	<script type="text/javascript" src=" {{ asset('assets/js/plugins/ui/nicescroll.min.js') }} "></script>
 	<script type="text/javascript" src=" {{ asset('assets/js/plugins/forms/selects/select2.min.js') }} "></script>
 
 	<script type="text/javascript" src="  {{ asset('assets/js/core/app.js') }} "></script>
+	<script type="text/javascript" src=" {{ asset('assets/js/pages/picker_date.js')}}"></script>
 	<script type="text/javascript" src="{{ asset('assets/js/plugins/notifications/sweet_alert.min.js')}}"></script>
 	<script type="text/javascript" src=" {{ asset('assets/js/pages/datatables_basic.js') }}  "></script>
 	<script type="text/javascript" src="  {{ asset('assets/js/pages/layout_fixed_custom.js') }} "></script>

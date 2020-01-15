@@ -19,6 +19,7 @@ class CreateRoutesTable extends Migration
             $table->string('origin');
             $table->string('destination');
             $table->string('slug');
+            $table->double('price');
             $table->timestamps();
         });
     }

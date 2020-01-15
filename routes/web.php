@@ -39,8 +39,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('bus/{id}/edit', 'OperatorsController@editBus')->name('admin.operators.edit.bus');
         Route::put('bus/{id}/edit', 'OperatorsController@updateBus')->name('admin.operators.update.bus');
     });
-        Route::group(['prefix' => 'reports'], function () {
-        Route::get('', 'BusBookingsController@index')->name('admin.reports.buses.index');
+
+    Route::group(['prefix' => 'reports'], function () {
+        Route::get('', 'RoutesController@index')->name('admin.reports.buses.index');
+       
+    });    
+    
+    Route::group(['prefix' => 'routes'], function () {
+        Route::get('', 'RoutesController@index')->name('admin.routes.index');
+        Route::Post('', 'RoutesController@store')->name('admin.routes.store');
        
     });
     

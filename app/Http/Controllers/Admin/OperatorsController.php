@@ -123,7 +123,7 @@ class OperatorsController extends Controller
         $operator->address = $request->address;
         $operator->active = $request->active;
 
-        if($request->reg != null || $request->num_seats != null ){
+        if($request->reg != '' || $request->num_seats !='' ){
            
             $this->storeBus($request->all(), $operator->id, $operator);
         }
@@ -159,13 +159,14 @@ class OperatorsController extends Controller
             $request->validate([
                 'bus_id' => 'required|exists:buses,id',
                 'route_id' => 'required|exists:routes,id',
-                'price' => 'required|Numeric',
+                'bus_name' => 'required|string',
             ]);
 
             $bus_route=BusRoute::create([
                 'bus_id'=>$request->bus_id,
                 'route_id'=>$request->route_id,
-                'price'=>$request->price,
+                'bus_name'=>$request->bus_name,
+                'bus_time'=>$request->bus_time,
             ]);
             
             return redirect()->back()->with(['msg' => 'Bus route successfully created', 'type' => 'bg-success']);
@@ -193,7 +194,7 @@ class OperatorsController extends Controller
       try{
         
         $noSpaces =str_replace(' ', '',$data['reg']);
-
+       
         Bus::create([
             'operator_id' => $operator_id,
             'reg' =>  $noSpaces,

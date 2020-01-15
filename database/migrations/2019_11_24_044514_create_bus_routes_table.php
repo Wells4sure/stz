@@ -19,7 +19,8 @@ class CreateBusRoutesTable extends Migration
             $table->foreign('bus_id')->references('id')->on('buses')->onDelete('CASCADE');
             $table->unsignedBigInteger('route_id');
             $table->foreign('route_id')->references('id')->on('routes')->onDelete('CASCADE');
-            $table->decimal('price');
+            $table->string('bus_name');
+            $table->dateTime('bus_time');
             $table->timestamps();
         });
     }

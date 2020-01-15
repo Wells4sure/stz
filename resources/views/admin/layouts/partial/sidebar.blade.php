@@ -19,7 +19,6 @@
                     <ul class="navigation">
                         <li><a href="#"><i class="icon-user-plus"></i> <span>My profile</span></a></li>
                         <li><a href="#"><i class="icon-coins"></i> <span>My balance</span></a></li>
-                        <li><a href="#"><i class="icon-comment-discussion"></i> <span><span class="badge bg-teal-400 pull-right">58</span> Messages</span></a></li>
                         <li class="divider"></li>
                         <li><a href="#"><i class="icon-cog5"></i> <span>Account settings</span></a></li>
                         <li><a href="#"><i class="icon-switch2"></i> <span>Logout</span></a></li>
@@ -46,6 +45,14 @@
                               
                             </ul>
                         </li>
+                        <li>
+                            <a href="#"><i class="icon-road"></i> <span>Routes</span></a>
+                            <ul>
+                                <li class="{{ Route::currentRouteNamed('admin.routes.index') ? 'active' : '' }}"><a href="{{ route('admin.routes.index') }}" id="layout1">View Routes</a></li>
+                              
+                            </ul>
+                        </li>
+                        
                         <li>
                             <a href="#"><i class="icon-store"></i> <span>Operators</span></a>
                             <ul>
