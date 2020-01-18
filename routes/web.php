@@ -41,7 +41,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     });
 
     Route::group(['prefix' => 'reports'], function () {
-        Route::get('', 'RoutesController@index')->name('admin.reports.buses.index');
+        Route::get('', 'BusBookingsController@index')->name('admin.reports.buses.index');
        
     });    
     

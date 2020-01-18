@@ -1994,8 +1994,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2083,7 +2081,7 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (res) {
           _this2.spinner2 = false;
           _this2.resMsg = res.data;
-          return window.location.assign("/", 10000);
+          return window.location.assign("/", 8000);
         })["catch"](function (err) {
           _this2.spinner2 = false;
           _this2.errMsg2 = err.response.data.errors;

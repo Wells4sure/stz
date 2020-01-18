@@ -55,9 +55,7 @@
                     
                     <h3 class="py-4 text-center dotted-line" v-if="buses.length > 0">
                         SEARCH RESULTS
-                        </h3>   
-                                
-      
+                        </h3>
                     <ul class="list-unstyled ">
                         <li class="media dotted-line result-media py-4"  v-for="(bus, index) in buses" :key="bus.id" >
                             <img src="assets/images/plcholder.png" class="mr-3" alt="..." width="55">
@@ -246,7 +244,7 @@
                      }).then(res => {
                          this.spinner2 =false;
                         this.resMsg=res.data;
-                        return window.location.assign("/",10000)
+                        return window.location.assign("/",8000)
                      }).catch(err=>{
                           this.spinner2 =false;
                          this.errMsg2 =err.response.data.errors;
